@@ -1,0 +1,50 @@
+name: imswitch-flimlabs
+display_name: FLIMLabs Adapter
+# use 'hidden' to remove plugin from imswitch hub search results
+visibility: public
+# see https://imswitch.org/stable/plugins/manifest.html for valid categories
+categories: ["Annotation", "Segmentation", "Acquisition"]
+contributions:
+  commands:
+    - id: imswitch-flimlabs.get_controller
+      python_name: imswitch_flimlabs._controller:imswitch_get_controller
+      title: Open data with FLIMLabs Adapter
+    - id: imswitch-flimlabs.write_multiple
+      python_name: imswitch_flimlabs._manager:write_multiple
+      title: Save multi-layer data with FLIMLabs Adapter
+    - id: imswitch-flimlabs.make_sample_data
+      python_name: imswitch_flimlabs._sample_data:make_sample_data
+      title: Load sample data from FLIMLabs Adapter
+    - id: imswitch-flimlabs.make_container_widget
+      python_name: imswitch_flimlabs:ImageThreshold
+      title: Make threshold Container widget
+    - id: imswitch-flimlabs.make_magic_widget
+      python_name: imswitch_flimlabs:threshold_magic_widget
+      title: Make threshold magic widget
+    - id: imswitch-flimlabs.make_function_widget
+      python_name: imswitch_flimlabs:threshold_autogenerate_widget
+      title: Make threshold function widget
+    - id: imswitch-flimlabs.make_qwidget
+      python_name: imswitch_flimlabs:ExampleQWidget
+      title: Make example QWidget
+  controllers:
+    - command: imswitch-flimlabs.get_controller
+      accepts_directories: false
+      filename_patterns: ['*.npy']
+  managers:
+    - command: imswitch-flimlabs.write_multiple
+      layer_types: ['image*','labels*']
+      filename_extensions: []
+    - command: imswitch-flimlabs.write_single_image
+      layer_types: ['image']
+      key: unique_id.1
+  widgets:
+    - command: imswitch-flimlabs.make_container_widget
+      display_name: Container Threshold
+    - command: imswitch-flimlabs.make_magic_widget
+      display_name: Magic Threshold
+    - command: imswitch-flimlabs.make_function_widget
+      autogenerate: true
+      display_name: Autogenerate Threshold
+    - command: imswitch-flimlabs.make_qwidget
+      display_name: Example QWidget
